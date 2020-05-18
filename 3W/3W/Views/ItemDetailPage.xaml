@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="_3W.Views.ItemDetailPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#32a0f4</Color>
+            <Color x:Key="Accent">#72b9f0</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="50"/>
+            <RowDefinition Height ="50"/>
+            <RowDefinition Height ="50"/>
+            <RowDefinition Height ="50"/>
+            <RowDefinition Height ="50"/>
+            <RowDefinition Height ="50"/>
+            <RowDefinition Height ="*"/>       
+            <RowDefinition Height ="60"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Text="Asset Name:" FontSize="Large" Grid.Row ="0" Grid.ColumnSpan ="2" Margin="20,0" VerticalOptions="End" TextColor="{StaticResource Primary}" />
+        <Label Text="{Binding Item.AssetId}" d:Text="dropdown locations" FontSize="Medium"  Grid.Row ="1" Grid.ColumnSpan ="2" Margin="20,0,20,0"/>
+        <Label Text="Location" FontSize="Large" TextColor="{StaticResource Primary}" Grid.Row ="2" VerticalOptions="End" Margin ="20,10" />
+        <Picker x:Name="LocationPicker" Grid.Row ="3" Grid.ColumnSpan ="2" Margin="20,0,20,0" 
+             Title="Select a Location" 
+             TitleColor="{StaticResource LightTextColor}" >
+            <Picker.ItemsSource SelectedItem="{Binding Item.Location}" >
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Home Location</x:String>
+                    <x:String>Site 1</x:String>
+                    <x:String>Site 2</x:String>
+                    <x:String>Site 3</x:String>
+                </x:Array>
+            </Picker.ItemsSource>            
+        </Picker>
+
+        <Label Text="Status" FontSize="Large" TextColor="{StaticResource Primary}" Grid.Row ="4"  Grid.ColumnSpan ="2" VerticalOptions="End" Margin ="20,20,0,0"/>
+
+        <!--   <Editor Text="{Binding Item.Status}" d:Text="Item Status" FontSize="Large" Margin="0" />     -->
+
+        <Picker x:Name="StatusPicker" Grid.Row ="5" Grid.ColumnSpan ="2" Margin="20,0,20,0"
+             Title="Select a Status"
+             TitleColor="{StaticResource LightTextColor}" >
+            <Picker.ItemsSource SelectedItem="{Binding Item.Status}" 
+                ItemsSource="{Binding MyStatuses}" >
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Despatched</x:String>
+                    <x:String>Dropped</x:String>
+                    <x:String>Collected</x:String>
+                    <x:String>Returned</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <!--line and asset count -->
+
+
+
+        <Button Grid.Row ="7" Grid.Column="0" Text  ="Save" FontSize="Large" BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"  Margin="10,0,10,10" BorderWidth="2"         BorderColor="Black"
+                 Clicked="SaveButtonClicked"/>
+
+
+        <Button Grid.Row ="7" Grid.Column=" 1" Text ="Delete" FontSize="Large" BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"  Margin="10,0,10,10" BorderWidth="2"         BorderColor="Black"
+                Command="{Binding EraseCommand}"/>
+            
+ 
+        
+          
+    </Grid> 
+        
+   
+   
+    
+</ContentPage>

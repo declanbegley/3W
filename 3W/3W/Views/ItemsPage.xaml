@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="_3W.Views.ItemsPage"
+             Title="{Binding Title}"
+             x:Name="BrowseItemsPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#32a0f4</Color>
+            <Color x:Key="Accent">#72b9f0</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="50"/>
+            <RowDefinition Height ="60"/>
+        </Grid.RowDefinitions>
+        <!-- define two rows and two colums for buttons at the bottom -->
+            
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}" Grid.Row ="0" Grid.ColumnSpan ="2" >
+
+            <CollectionView x:Name="ItemsCollectionView" ItemsSource="{Binding Items}" BackgroundColor="AliceBlue" VerticalScrollBarVisibility="Always"  EmptyView="No Assets Scanned" > 
+              
+                <CollectionView.ItemTemplate >
+                    <DataTemplate>
+                        <StackLayout Padding="10" >
+
+                            <Label Text="{Binding AssetId}"  FontSize="16" TextColor="#000000" />
+                            <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Location}" />
+                                        <Span Text=" - "/>
+                                        <Span Text="{Binding Status}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                            </Label>
+
+                            
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnItemSelected"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+                                    
+        </RefreshView> 
+
+        <!-- todo the asset count at bottom odf the screen  -->
+               
+        
+
+        <Label FontSize="Large" Grid.Row ="1" Grid.ColumnSpan  ="2"  HorizontalOptions="Center" >
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Assets Scanned " />
+                    <Span Text=" - 5"  />                
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+
+        <Button Grid.Row ="2" Grid.Column="0" Text  ="Add" FontSize="Large" BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"  Margin="10,0,10,10" BorderRadius="0" BorderWidth="2" BorderColor="Black"
+                Command="{Binding AddItem_Clicked}"/>
+
+
+        <Button Grid.Row ="2" Grid.Column=" 1" Text ="Post" FontSize="Large" BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"  Margin="10,0,10,10" BorderRadius="0"
+        BorderWidth="2"
+        BorderColor="Black"
+                Command="{Binding EraseCommand}"/>
+    </Grid >
+
+</ContentPage>
